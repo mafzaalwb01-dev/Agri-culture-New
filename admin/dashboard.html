@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — Agri Force</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    body { background: var(--bg); font-family: 'Inter', sans-serif; }
+    .hidden { display: none !important; }
+    .tab-pane { animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <!-- Admin Header -->
+  <header class="admin-header" style="display:flex; justify-content:space-between; align-items:center;">
+    <div style="display:flex; align-items:center; gap:8px; font-family:'Outfit'; font-size:1.5rem; font-weight:700;">
+      🌱 Agri Force Admin
+    </div>
+    <div style="display:flex; align-items:center; gap:16px;">
+      <span style="font-size:0.85rem; color:#9CA3AF;">Welcome, Admin</span>
+      <button onclick="logoutAdmin()" style="background:var(--red); color:white; padding:6px 16px; border-radius:50px; font-weight:600; font-size:0.8rem;">Logout</button>
+    </div>
+  </header>
+
+  <div style="max-width:1200px; margin:0 auto; padding-bottom:100px;">
+    <!-- Stats -->
+    <div class="admin-stats" id="adminStats">
+      <!-- Injected via JS -->
+    </div>
+
+    <!-- Tabs -->
+    <div class="admin-tabs">
+      <div class="admin-tab active" data-tab="orders">📦 Orders</div>
+      <div class="admin-tab" data-tab="products">🌱 Products</div>
+      <div class="admin-tab" data-tab="customers">👥 Customers</div>
+    </div>
+
+    <!-- Content -->
+    <div class="admin-content">
+      <!-- Orders Tab -->
+      <div id="tab-orders" class="tab-pane">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h2>Recent Orders</h2>
+        </div>
+        <div id="ordersContainer"></div>
+      </div>
+
+      <!-- Products Tab -->
+      <div id="tab-products" class="tab-pane hidden">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <h2>Product Inventory</h2>
+          <button class="btn-primary" style="width:auto; padding:8px 16px; border-radius:50px;" onclick="alert('Product adding feature coming soon!')">+ Add Product</button>
+        </div>
+        <div id="productsContainer" style="display:grid; grid-template-columns:1fr; gap:12px;"></div>
+      </div>
+
+      <!-- Customers Tab -->
+      <div id="tab-customers" class="tab-pane hidden">
+        <h2 style="margin-bottom:16px;">Customer Directory</h2>
+        <div class="empty-state">
+          <div class="icon">👥</div>
+          <h3>Customer Database Syncing</h3>
+          <p>This tab is linked to real-time sync with Supabase. Check back later.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/products-data.js"></script>
+  <script>
+    // Auth Check
+    if (sessionStorage.getItem('gh_admin') !== 'true') {
+      window.location.href = 'index.html';
+    }
+
+    function logoutAdmin() {
+      sessionStorage.removeItem('gh_admin');
+      window.location.href = 'index.html';
+    }
+
+    // Tabs Logic
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.onclick = () => {
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.add('hidden'));
+        document.getElementById('tab-' + tab.dataset.tab).classList.remove('hidden');
+      };
+    });
+
+    // Load Data
+    function loadAdminData() {
+      const orders = JSON.parse(localStorage.getItem('gh_orders') || '[]');
+      
+      // Update Stats
+      const totalRev = orders.reduce((sum, o) => sum + o.total, 0);
+      const pendingOrders = orders.filter(o => o.status === 'pending').length;
+      
+      document.getElementById('adminStats').innerHTML = `
+        <div class="stat-card">
+          <div class="number">₹${totalRev}</div>
+          <div class="label">Total Revenue</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">${orders.length}</div>
+          <div class="label">Total Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">${pendingOrders}</div>
+          <div class="label">Pending Orders</div>
+        </div>
+        <div class="stat-card">
+          <div class="number">${PRODUCTS.length}</div>
+          <div class="label">Total Products</div>
+        </div>
+      `;
+
+      // Render Orders
+      const oc = document.getElementById('ordersContainer');
+      if (orders.length === 0) {
+        oc.innerHTML = '<div class="empty-state"><div class="icon">📦</div><h3>No orders yet</h3><p>Your latest farm orders will appear here.</p></div>';
+      } else {
+        oc.innerHTML = [...orders].reverse().map((o, index) => {
+          const originalIndex = orders.length - 1 - index;
+          return `
+          <div class="order-card">
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;">
+              <div>
+                <strong style="font-size:1.1rem;">${o.id}</strong>
+                <div style="font-size:0.8rem; color:var(--text-light); margin-top:4px;">${new Date(o.date).toLocaleString()}</div>
+              </div>
+              <span class="order-status status-${o.status}">${o.status.toUpperCase()}</span>
+            </div>
+            <div style="font-size:0.9rem; margin-bottom:12px;">
+              <strong>Customer:</strong> ${o.customer.name} <br>
+              <strong>Phone:</strong> ${o.customer.phone} <br>
+              <strong>Address:</strong> ${o.customer.address}
+            </div>
+            <div style="font-size:0.85rem; border-top:1px solid var(--border); padding-top:12px; margin-bottom:12px; color:var(--text-light);">
+              ${o.items.map(i => `<div style="margin-bottom:4px;">${i.qty}x ${i.name} (${i.weight})</div>`).join('')}
+            </div>
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <strong style="color:var(--green); font-size:1.1rem;">₹${o.total}</strong>
+              <div style="display:flex; gap:8px;">
+                ${o.status === 'pending' ? `<button onclick="updateOrderStatus(${originalIndex}, 'shipped')" style="padding:6px 12px; border-radius:50px; border:1px solid var(--border); background:#fff; font-size:0.8rem; font-weight:600;">Mark Shipped</button>` : ''}
+                ${o.status === 'shipped' ? `<button onclick="updateOrderStatus(${originalIndex}, 'delivered')" style="padding:6px 12px; border-radius:50px; background:var(--green); color:#fff; font-size:0.8rem; font-weight:600;">Mark Delivered</button>` : ''}
+              </div>
+            </div>
+          </div>
+        `}).join('');
+      }
+
+      // Render Products
+      const pc = document.getElementById('productsContainer');
+      pc.innerHTML = PRODUCTS.map((p) => `
+        <div style="display:flex; align-items:center; gap:16px; padding:12px; background:var(--card-bg); border-radius:var(--radius); box-shadow:var(--shadow);">
+          <img src="${p.image}" alt="${p.name}" style="width:60px; height:60px; border-radius:8px; object-fit:cover;">
+          <div style="flex:1;">
+            <div style="font-weight:600; font-size:0.95rem;">${p.name}</div>
+            <div style="font-size:0.8rem; color:var(--text-light); margin-top:4px;">
+              ${p.category} | ₹${p.price} 
+              ${p.stock ? '' : '<span style="color:var(--red); font-weight:600; margin-left:8px;">(Sold Out)</span>'}
+            </div>
+          </div>
+          <div style="text-align:right;">
+            <span class="${p.stock ? 'status-delivered' : 'status-pending'} order-status">${p.stock ? 'In Stock' : 'Out of Stock'}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Action functions must be globally accessible
+    window.updateOrderStatus = function(index, newStatus) {
+      const orders = JSON.parse(localStorage.getItem('gh_orders') || '[]');
+      if (orders[index]) {
+        orders[index].status = newStatus;
+        localStorage.setItem('gh_orders', JSON.stringify(orders));
+        loadAdminData();
+      }
+    };
+
+    document.addEventListener('DOMContentLoaded', loadAdminData);
+  </script>
+</body>
+</html>

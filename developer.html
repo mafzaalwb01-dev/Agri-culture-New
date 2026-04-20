@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About the Developer — Muhammad Afzaal Khan</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .dev-header {
+      background: linear-gradient(135deg, var(--charcoal), #2d3748);
+      padding: 80px 16px 60px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dev-header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCI+CjxyZWN0IHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgZmlsbD0ibm9uZSIvPgo8Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz4KPC9zdmc+') repeat;
+      opacity: 0.5;
+    }
+
+    .dev-profile {
+      max-width: 900px;
+      margin: -40px auto 60px;
+      background: var(--card-bg);
+      border-radius: 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      overflow: hidden;
+      position: relative;
+      z-index: 10;
+    }
+
+    .dev-photo {
+      background: linear-gradient(135deg, var(--green), var(--green-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: #fff;
+    }
+
+    .dev-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .dev-info {
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .dev-name {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: var(--charcoal);
+    }
+
+    .dev-father {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .dev-title {
+      color: var(--green);
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 24px;
+      letter-spacing: 0.5px;
+    }
+
+    .dev-desc {
+      font-size: 1.05rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .skill-tag {
+      padding: 8px 16px;
+      background: #f0fdf4;
+      color: var(--green);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border: 1px solid #dcfce7;
+    }
+
+    .dream-box {
+      background: linear-gradient(to right, #fffbeb, #fef3c7);
+      border-left: 4px solid var(--gold);
+      padding: 20px;
+      border-radius: 0 12px 12px 0;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .dream-icon {
+      font-size: 2rem;
+    }
+
+    .dream-text h4 {
+      font-size: 1.1rem;
+      color: #92400e;
+      margin-bottom: 4px;
+    }
+
+    .dream-text p {
+      font-size: 0.9rem;
+      color: #b45309;
+    }
+
+    @media(max-width: 768px) {
+      .dev-profile {
+        grid-template-columns: 1fr;
+        margin: -20px 16px 60px;
+      }
+
+      .dev-photo {
+        padding: 40px 20px;
+      }
+
+      .dev-info {
+        padding: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">🌱 <span>Agri Force</span></a>
+      <nav class="main-nav" id="mainNav">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#productGrid" class="nav-link">Shop</a>
+        <a href="index.html#aboutSection" class="nav-link">About Us</a>
+        <a href="contact.html" class="nav-link">Contact</a>
+      </nav>
+      <div class="header-actions">
+        <button class="hamburger" id="hamburger" aria-label="Menu"
+          onclick="document.getElementById('mainNav').classList.toggle('open')">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="dev-header">
+    <h1 style="font-size: 3rem; margin-bottom: 12px; position:relative; z-index:2;">Meet the Creator</h1>
+    <p style="font-size: 1.1rem; opacity: 0.8; max-width: 600px; margin: 0 auto; position:relative; z-index:2;">The mind
+      behind the Agri Force platform</p>
+  </div>
+
+  <div class="dev-profi le">
+    <div class="dev-photo">
+      <div class="dev-avatar"><img src="MP.jpeg" alt=""></div>
+    </div>
+    <div class="dev-info">
+      <div class="dev-name">Muhammad Afzaal Khan</div>
+      <div class="dev-father">S/O Sharafat Khan</div>
+      <div class="dev-title">Full Stack Developer & Video Editor</div>
+
+      <p class="dev-desc">
+        I am a passionate computer expert with a strong foundation in modern web technologies. I specialize in building
+        high-performance, dynamic applications like this agricultural e-commerce platform. Beyond coding, I am also an
+        experienced video editor with a keen eye for visual aesthetics.
+      </p>
+
+      <div class="skill-tags">
+        <span class="skill-tag">💻 Full Stack Development</span>
+        <span class="skill-tag">🎬 Video Editing</span>
+        <span class="skill-tag">🖥️ Computer Expert</span>
+        <span class="skill-tag">⚡ UI/UX Design</span>
+      </div>
+
+      <div class="dream-box">
+        <div class="dream-icon">🎯</div>
+        <div class="dream-text">
+          <h4>My Dream & Goal</h4>
+          <p>Working diligently to become a <strong>Certified Ethical Hacker (CEH)</strong> to secure digital landscapes
+            and master cybersecurity.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>🌱 Agri Force</h3>
+        <p>Premium organic seeds delivered directly from our farm. Growing healthy gardens since 2001.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html#productGrid">Shop Seeds</a>
+        <a href="developer.html">About Developer</a>
+      </div>
+    </div>
+    <div class="footer-bottom">© 2026 Agri Force. All rights reserved. | Made with 🌱 in KPK | Designed & Developed by
+      <a href="developer.html" style="color:var(--gold); font-weight:600; text-decoration:underline;">Muhammad Afzaal
+        Khan</a></div>
+  </footer>
+
+</body>
+
+</html>

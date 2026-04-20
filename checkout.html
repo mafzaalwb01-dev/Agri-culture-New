@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout — Agri Force</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <a href="index.html" class="logo">🌿 <span>Agri Force</span></a>
+      <div class="header-actions">
+        <a href="cart.html"><button aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg><span class="cart-badge hidden">0</span></button></a>
+      </div>
+    </div>
+  </header>
+
+  <div class="checkout-container">
+    <h2 style="font-size:1.4rem;margin-bottom:20px;font-family:'Outfit'">📦 Checkout</h2>
+
+    <!-- Delivery Details -->
+    <div class="checkout-section">
+      <h3>📍 Delivery Details</h3>
+      <div class="form-group"><label>Full Name</label><input type="text" id="fullName" placeholder="Enter your full name" required></div>
+      <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" placeholder="+91 9876543210" required></div>
+      <div class="form-group"><label>Delivery Address</label><textarea id="address" rows="3" placeholder="House no, street, city, pincode" required></textarea></div>
+    </div>
+
+    <!-- Payment Method -->
+    <div class="checkout-section">
+      <h3>💳 Payment Method</h3>
+      <div class="payment-options">
+        <div class="payment-option selected">
+          <div class="payment-radio"></div>
+          <div><strong>Cash on Delivery</strong><br><span style="font-size:.8rem;color:var(--text-light)">Pay when you receive</span></div>
+        </div>
+        <div class="payment-option">
+          <div class="payment-radio"></div>
+          <div><strong>UPI Payment</strong><br><span style="font-size:.8rem;color:var(--text-light)">GPay, PhonePe, Paytm</span></div>
+        </div>
+        <div class="payment-option">
+          <div class="payment-radio"></div>
+          <div><strong>Card Payment</strong><br><span style="font-size:.8rem;color:var(--text-light)">Debit / Credit Card</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="checkout-section">
+      <h3>🧾 Order Summary</h3>
+      <div id="orderSummary"></div>
+    </div>
+
+    <button class="checkout-btn" id="placeOrder">✅ Place Order</button>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal success-modal">
+      <div class="checkmark">✅</div>
+      <h2 style="margin-bottom:8px">Order Placed!</h2>
+      <p style="color:var(--text-light);margin-bottom:20px">Thank you! Your fresh produce is on its way 🚚</p>
+      <p style="font-size:.85rem;color:var(--text-light);margin-bottom:20px">You'll receive a WhatsApp confirmation shortly.</p>
+      <a href="index.html"><button class="btn-primary">Continue Shopping</button></a>
+    </div>
+  </div>
+
+  <nav class="bottom-nav">
+    <a href="index.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>Home</a>
+    <a href="index.html#categoryBar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>Explore</a>
+    <a href="cart.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>Cart</a>
+    <a href="login.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>Account</a>
+  </nav>
+
+  <script src="js/products-data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
